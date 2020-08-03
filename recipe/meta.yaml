@@ -19,6 +19,8 @@ source:
   - url: https://github.com/{{ name }}/scalapackfx/archive/{{ name }}-{{ version }}.tar.gz
     sha256: 23797a2ac8c495a4bd9cc9445f14a8aca7eee0ce585f86b9e575b1e2a4b68cb6
     folder: "external/scalapackfx/origin"
+    patches:
+    - scalapack-link.patch
   {% endif %}
 
 {% if mpi == "nompi" %}

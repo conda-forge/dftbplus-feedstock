@@ -1,0 +1,12 @@
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index e135098..10141ca 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -27,6 +27,7 @@ foreach(fppsrc IN LISTS sources-fpp)
+ endforeach()
+ 
+ add_library(scalapackfx ${SOURCES-F90-PREPROC})
++target_link_libraries(scalapackfx ${EXTERNAL_LIBRARIES} ${MPI_Fortran_LIBRARIES})
+ 
+ set(BUILD_MOD_DIR ${CMAKE_CURRENT_BINARY_DIR}/include)
+ 
