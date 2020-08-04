@@ -1,19 +1,48 @@
 {% set name = "dftbplus" %}
 {% set version = "20.1" %}
+{% set build = 1 %}
+{% set mpi = mpi or "nompi" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: a155ca927c804234587c61c4938d154f31578c816b0ce20eaee3b5d7e39d91dc
-  patches:
+  - url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
+    sha256: a155ca927c804234587c61c4938d154f31578c816b0ce20eaee3b5d7e39d91dc
+    patches:
     - no-python.patch
+    - pkg-config.patch
+    - scalapackfx.patch
+  {% if mpi != "nompi" %}
+  - url: https://github.com/{{ name }}/mpifx/archive/{{ name }}-{{ version }}.tar.gz
+    sha256: 321808573bc7f7719a34516723bd9514ddb6db508a74b572a52794f7bc864f93
+    folder: "external/mpifx/origin"
+  - url: https://github.com/{{ name }}/scalapackfx/archive/{{ name }}-{{ version }}.tar.gz
+    sha256: 23797a2ac8c495a4bd9cc9445f14a8aca7eee0ce585f86b9e575b1e2a4b68cb6
+    folder: "external/scalapackfx/origin"
+    patches:
+    - scalapack-link.patch
+  {% endif %}
 
+{% if mpi == "nompi" %}
+{% set build = build + 100 %}
+{% endif %}
 build:
-  number: 0
+  number: {{ build }}
   skip: True  # [win]
+
+  {% if mpi != "nompi" %}
+  {% set mpi_prefix = "mpi_" + mpi %}
+  {% else %}
+  {% set mpi_prefix = "nompi" %}
+  {% endif %}
+  string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
+
+  {% if mpi != "nompi" %}
+  run_exports:
+    - {{ name }} * {{ mpi_prefix }}_*
+  {% endif %}
 
 requirements:
   build:
@@ -23,17 +52,24 @@ requirements:
     - ninja
     - fypp
   host:
+    - {{ mpi }}  # [mpi != "nompi"]
+    - scalapack  # [mpi != "nompi"]
     - libblas
     - liblapack
     - llvm-openmp  # [osx]
     - libgomp  # [linux and not aarch64]
   run:
+    - {{ mpi }}  # [mpi != "nompi"]
+    - scalapack  # [mpi != "nompi"]
     - libblas
     - liblapack
 
 
 test:
+  requires:
+    - pkg-config
   commands:
+    - pkg-config {{ name }} --exact-version {{ version }}
     - test -f $PREFIX/bin/dftb+
     - test -f $PREFIX/lib/libdftbplus.dylib  # [osx]
     - test -f $PREFIX/lib/libdftbplus.so  # [linux]
@@ -49,6 +85,8 @@ about:
     - "external/fsockets/LICENSE"
     - "external/mudpack/LICENSE"
     - "external/xmlf90/LICENSE"
+    - "external/mpifx/origin/LICENSE"  # [mpi != "nompi"]
+    - "external/scalapackfx/origin/LICENSE"  # [mpi != "nompi"]
   summary: "DFTB+ general package for performing fast atomistic simulations"
   doc_url: https://{{ name }}-recipes.readthedocs.io
   dev_url: https://github.com/{{ name }}/{{ name }}

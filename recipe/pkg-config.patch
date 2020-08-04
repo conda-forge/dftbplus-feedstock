@@ -1,0 +1,27 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d2cb96cc1..2d7bbfcd4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,7 +1,7 @@
+ cmake_minimum_required(VERSION 3.5)
+ cmake_policy(VERSION 3.5)
+ 
+-set(DFTBPLUS_VERSION "19.2")
++set(DFTBPLUS_VERSION "20.1")
+ 
+ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+ include(dftbpUtils)
+diff --git a/doc/api/doxygen/Doxyfile b/doc/api/doxygen/Doxyfile
+index 098425949..320e77d88 100644
+--- a/doc/api/doxygen/Doxyfile
++++ b/doc/api/doxygen/Doxyfile
+@@ -38,7 +38,7 @@ PROJECT_NAME           = DFTB+API
+ # could be handy for archiving the generated documentation or if some version
+ # control system is used.
+ 
+-PROJECT_NUMBER         = 19.1
++PROJECT_NUMBER         = 20.1
+ 
+ # Using the PROJECT_BRIEF tag one can provide an optional one line description
+ # for a project that appears at the top of each page and should give viewer a
+
