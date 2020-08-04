@@ -12,6 +12,8 @@ source:
     sha256: a155ca927c804234587c61c4938d154f31578c816b0ce20eaee3b5d7e39d91dc
     patches:
     - no-python.patch
+    - pkg-config.patch
+    - scalapackfx.patch
   {% if mpi != "nompi" %}
   - url: https://github.com/{{ name }}/mpifx/archive/{{ name }}-{{ version }}.tar.gz
     sha256: 321808573bc7f7719a34516723bd9514ddb6db508a74b572a52794f7bc864f93
@@ -64,7 +66,10 @@ requirements:
 
 
 test:
+  requires:
+    - pkg-config
   commands:
+    - pkg-config --modversion {{ name }} --exact-version {{ version }}
     - test -f $PREFIX/bin/dftb+
     - test -f $PREFIX/lib/libdftbplus.dylib  # [osx]
     - test -f $PREFIX/lib/libdftbplus.so  # [linux]
