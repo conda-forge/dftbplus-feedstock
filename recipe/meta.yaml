@@ -69,7 +69,7 @@ test:
   requires:
     - pkg-config
   commands:
-    - pkg-config --modversion {{ name }} --exact-version {{ version }}
+    - pkg-config {{ name }} --exact-version {{ version }}
     - test -f $PREFIX/bin/dftb+
     - test -f $PREFIX/lib/libdftbplus.dylib  # [osx]
     - test -f $PREFIX/lib/libdftbplus.so  # [linux]
