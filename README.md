@@ -5,11 +5,13 @@ Home: https://dftbplus.org
 
 Package license: LGPL-3.0-or-later
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/dftbplus-feedstock/blob/master/LICENSE.txt)
 
 Summary: DFTB+ general package for performing fast atomistic simulations
 
+Development: https://github.com/dftbplus/dftbplus
 
+Documentation: https://dftbplus-recipes.readthedocs.io
 
 Current build status
 ====================
@@ -43,31 +45,171 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64</td>
+              <td>linux_64_c_compiler_version7fortran_compiler_version7mpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version7fortran_compiler_version7mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64</td>
+              <td>linux_64_c_compiler_version7fortran_compiler_version7mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version7fortran_compiler_version7mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le</td>
+              <td>linux_64_c_compiler_version7fortran_compiler_version7mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version7fortran_compiler_version7mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64</td>
+              <td>linux_64_c_compiler_version9fortran_compiler_version9mpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=osx&configuration=osx_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version9fortran_compiler_version9mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_c_compiler_version9fortran_compiler_version9mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version9fortran_compiler_version9mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_c_compiler_version9fortran_compiler_version9mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version9fortran_compiler_version9mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_c_compiler_version7fortran_compiler_version7mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version7fortran_compiler_version7mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_c_compiler_version7fortran_compiler_version7mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version7fortran_compiler_version7mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_c_compiler_version7fortran_compiler_version7mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version7fortran_compiler_version7mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_c_compiler_version9fortran_compiler_version9mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version9fortran_compiler_version9mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_c_compiler_version9fortran_compiler_version9mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version9fortran_compiler_version9mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_c_compiler_version9fortran_compiler_version9mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version9fortran_compiler_version9mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_c_compiler_version8fortran_compiler_version8mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version8fortran_compiler_version8mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_c_compiler_version8fortran_compiler_version8mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version8fortran_compiler_version8mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_c_compiler_version8fortran_compiler_version8mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version8fortran_compiler_version8mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_c_compiler_version9fortran_compiler_version9mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version9fortran_compiler_version9mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_c_compiler_version9fortran_compiler_version9mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version9fortran_compiler_version9mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_c_compiler_version9fortran_compiler_version9mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version9fortran_compiler_version9mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_fortran_compiler_version7mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version7mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_fortran_compiler_version7mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version7mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_fortran_compiler_version7mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version7mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_fortran_compiler_version9mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version9mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_fortran_compiler_version9mpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version9mpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_fortran_compiler_version9mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=10334&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/dftbplus-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version9mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr>
