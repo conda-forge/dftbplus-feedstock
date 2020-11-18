@@ -8,8 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/6859030125f7764792813a57a0dcfeebcc5929df.tar.gz
-  sha256: 5d3278590a258340dc421bce3e9b3daaa00401065ade56b760fe6761b700556b
+  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: 6b1f10c7efbdaf59acf64d8fb8afc80460c0fbc6c4dbe256b760223cbd28ed2c
 
 {% if mpi == "nompi" %}
 {% set build = build + 100 %}
@@ -48,9 +48,9 @@ requirements:
     - libgomp  # [linux and not aarch64]
   run:
     - {{ mpi }}  # [mpi != "nompi"]
-    - {{ pin_compatible('mpifx') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - {{ pin_compatible('mpifx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
-    - {{ pin_compatible('scalapackfx') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - libblas
     - liblapack
 
