@@ -8,16 +8,18 @@ else
 fi
 
 cmake_options=(
-   "-GNinja"
-   "-DCMAKE_BUILD_TYPE=Release"
    "-DCMAKE_INSTALL_PREFIX=${PREFIX}"
+   "-DCMAKE_INSTALL_LIBDIR=lib"
+   "-DLAPACK_LIBRARY='lapack;blas'"
+   "-DSCALAPACK_LIBRARY='scalapack'"
+   "-DHYBRID_CONFIG_METHODS='Find'"
    "-DBUILD_SHARED_LIBS=ON"
-   "-DLAPACK_LIBRARIES='lapack;blas'"
-   "-DSCALAPACK_LIBRARIES='scalapack'"
+   "-DWITH_PYTHON=OFF"
    "-DWITH_API=ON"
    "-DWITH_SOCKETS=ON"
    "-DWITH_OMP=ON"
    "-DWITH_MPI=${MPI}"
+   "-GNinja"
    ".."
 )
 
@@ -26,3 +28,5 @@ pushd _build
 
 cmake "${cmake_options[@]}"
 ninja all install
+
+popd

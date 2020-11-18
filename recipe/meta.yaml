@@ -1,6 +1,6 @@
 {% set name = "dftbplus" %}
-{% set version = "20.1" %}
-{% set build = 2 %}
+{% set version = "20.2" %}
+{% set build = 0 %}
 {% set mpi = mpi or "nompi" %}
 
 package:
@@ -8,22 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-    sha256: a155ca927c804234587c61c4938d154f31578c816b0ce20eaee3b5d7e39d91dc
-    patches:
-    - no-python.patch
-    - pkg-config.patch
-    - scalapackfx.patch
-  {% if mpi != "nompi" %}
-  - url: https://github.com/{{ name }}/mpifx/archive/{{ name }}-{{ version }}.tar.gz
-    sha256: 321808573bc7f7719a34516723bd9514ddb6db508a74b572a52794f7bc864f93
-    folder: "external/mpifx/origin"
-  - url: https://github.com/{{ name }}/scalapackfx/archive/{{ name }}-{{ version }}.tar.gz
-    sha256: 23797a2ac8c495a4bd9cc9445f14a8aca7eee0ce585f86b9e575b1e2a4b68cb6
-    folder: "external/scalapackfx/origin"
-    patches:
-    - scalapack-link.patch
-  {% endif %}
+  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: 6b1f10c7efbdaf59acf64d8fb8afc80460c0fbc6c4dbe256b760223cbd28ed2c
 
 {% if mpi == "nompi" %}
 {% set build = build + 100 %}
@@ -53,14 +39,18 @@ requirements:
     - fypp
   host:
     - {{ mpi }}  # [mpi != "nompi"]
+    - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
+    - scalapackfx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - libblas
     - liblapack
     - llvm-openmp  # [osx]
     - libgomp  # [linux and not aarch64]
   run:
     - {{ mpi }}  # [mpi != "nompi"]
+    - {{ pin_compatible('mpifx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
+    - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - libblas
     - liblapack
 
@@ -85,8 +75,6 @@ about:
     - "external/fsockets/LICENSE"
     - "external/mudpack/LICENSE"
     - "external/xmlf90/LICENSE"
-    - "external/mpifx/origin/LICENSE"  # [mpi != "nompi"]
-    - "external/scalapackfx/origin/LICENSE"  # [mpi != "nompi"]
   summary: "DFTB+ general package for performing fast atomistic simulations"
   doc_url: https://{{ name }}-recipes.readthedocs.io
   dev_url: https://github.com/{{ name }}/{{ name }}
