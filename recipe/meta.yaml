@@ -52,7 +52,7 @@ requirements:
     - {{ pin_compatible('mpifx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
-    - libnegf * {{ mpi_prefix }}_*
+    - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
     - libblas
     - liblapack
 
