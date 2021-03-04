@@ -1,6 +1,6 @@
 {% set name = "dftbplus" %}
 {% set version = "20.2.1" %}
-{% set build = 1 %}
+{% set build = 2 %}
 {% set mpi = mpi or "nompi" %}
 
 package:
@@ -8,8 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: 6b1827a45b20d1757119a75abcb851cd4362e7abc58601094d029ed5922d6da7
+  url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
+  sha256: 95cc85fdb08bd57ca013bd09f4f902303720e17d015a5fab2d4db63fcb6d9cb3
 
 {% if mpi == "nompi" %}
 {% set build = build + 100 %}
@@ -42,6 +42,7 @@ requirements:
     - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - scalapackfx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - libnegf * {{ mpi_prefix }}_*
     - libblas
     - liblapack
     - llvm-openmp  # [osx]
@@ -51,6 +52,7 @@ requirements:
     - {{ pin_compatible('mpifx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
     - libblas
     - liblapack
 
