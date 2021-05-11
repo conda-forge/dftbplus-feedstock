@@ -20,8 +20,9 @@ cmake_options=(
    "-DWITH_OMP=ON"
    "-DWITH_MPI=${MPI}"
    "-DWITH_TRANSPORT=ON"
+   "-DWITH_MBD=ON"
    "-GNinja"
-   ".."
+   ..
 )
 
 mkdir -p _build
