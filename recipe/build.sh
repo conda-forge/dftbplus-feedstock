@@ -19,6 +19,7 @@ cmake_options=(
    "-DWITH_SOCKETS=ON"
    "-DWITH_OMP=ON"
    "-DWITH_MPI=${MPI}"
+   "-DWITH_ELSI=${MPI}"
    "-DWITH_TRANSPORT=ON"
    "-DWITH_MBD=ON"
    "-GNinja"
