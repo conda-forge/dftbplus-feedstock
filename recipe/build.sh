@@ -8,11 +8,10 @@ else
 fi
 
 cmake_options=(
-   "-DCMAKE_INSTALL_PREFIX=${PREFIX}"
-   "-DCMAKE_INSTALL_LIBDIR=lib"
+  ${CMAKE_ARGS}
    "-DLAPACK_LIBRARY='lapack;blas'"
    "-DSCALAPACK_LIBRARY='scalapack'"
-   "-DHYBRID_CONFIG_METHODS='Find'"
+   "-DHYBRID_CONFIG_METHODS='Find;PkgConf'"
    "-DBUILD_SHARED_LIBS=ON"
    "-DWITH_PYTHON=OFF"
    "-DWITH_API=ON"
