@@ -1,5 +1,5 @@
 {% set name = "dftbplus" %}
-{% set version = "21.1" %}
+{% set version = "21.2" %}
 {% set build = 0 %}
 {% set mpi = mpi or "nompi" %}
 
@@ -9,21 +9,21 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 31d5a488843a05d8589a375307a2832c1fc938f9f7d830c45a062726659e7b0a
+  sha256: e73aa698ff951b59f7fe2ea027b292bae16abf545c9fdbb11b5b5127f04a3c10
 
 {% if mpi == "nompi" %}
 {% set build = build + 100 %}
 {% endif %}
 build:
   number: {{ build }}
-  skip: True  # [win]
+  skip: true  # [win]
 
   {% if mpi != "nompi" %}
   {% set mpi_prefix = "mpi_" + mpi %}
   {% else %}
   {% set mpi_prefix = "nompi" %}
   {% endif %}
-  string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
+  string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
 
   {% if mpi != "nompi" %}
   run_exports:
@@ -73,13 +73,13 @@ about:
   license: LGPL-3.0-or-later
   license_family: LGPL
   license_file:
-    - "LICENSE"
-    - "COPYING"
-    - "COPYING.LESSER"
-    - "external/fsockets/LICENSE"
-    - "external/mudpack/LICENSE"
-    - "external/xmlf90/LICENSE"
-  summary: "DFTB+ general package for performing fast atomistic simulations"
+    - LICENSE
+    - COPYING
+    - COPYING.LESSER
+    - external/fsockets/LICENSE
+    - external/mudpack/LICENSE
+    - external/xmlf90/LICENSE
+  summary: DFTB+ general package for performing fast atomistic simulations
   doc_url: https://{{ name }}-recipes.readthedocs.io
   dev_url: https://github.com/{{ name }}/{{ name }}
 
