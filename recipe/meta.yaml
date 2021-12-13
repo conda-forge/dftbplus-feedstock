@@ -39,6 +39,7 @@ requirements:
     - cmake
     - ninja
     - fypp
+    - pkg-config
   host:
     - {{ mpi }}  # [mpi != "nompi"]
     - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
