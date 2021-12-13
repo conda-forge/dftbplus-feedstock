@@ -40,6 +40,8 @@ requirements:
     - ninja
     - fypp
     - pkg-config
+    - llvm-openmp  # [osx]
+    - libgomp  # [linux]
   host:
     - {{ mpi }}  # [mpi != "nompi"]
     - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
@@ -49,8 +51,6 @@ requirements:
     - libmbd * {{ mpi_prefix }}_*
     - libblas
     - liblapack
-    - llvm-openmp  # [osx]
-    - libgomp  # [linux and not aarch64]
   run:
     - {{ mpi }}  # [mpi != "nompi"]
     - {{ pin_compatible('mpifx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
@@ -58,9 +58,6 @@ requirements:
     - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
     - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*
-    - libblas
-    - liblapack
-
 
 test:
   requires:
