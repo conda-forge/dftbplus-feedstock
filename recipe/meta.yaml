@@ -1,6 +1,6 @@
 {% set name = "dftbplus" %}
 {% set version = "21.2" %}
-{% set build = 0 %}
+{% set build = 1 %}
 {% set mpi = mpi or "nompi" %}
 
 package:
@@ -55,6 +55,7 @@ requirements:
     - simple-dftd3
     - libmbd * {{ mpi_prefix }}_*
     - plumed * {{ mpi_prefix }}_*
+    - chimes-calculator
     - libblas
     - liblapack
   run:
@@ -69,6 +70,7 @@ requirements:
     - {{ pin_compatible('simple-dftd3', max_pin='x.x') }} *
     - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*
     - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*
+    - {{ pin_compatible('chimes-calculator', max_pin='x.x') }}
 
 test:
   requires:
