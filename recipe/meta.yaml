@@ -73,13 +73,12 @@ requirements:
 test:
   requires:
     - pkg-config
-    # OpenSSH needed, so that OpenMPIs mpiexec can be executed
-    - openssh  # [mpi == "openmpi"]
   commands:
+    - export OMPI_MCA_plm=isolated OMPI_MCA_btl_vader_single_copy_mechanism=none OMPI_MCA_rmaps_base_oversubscribe=yes  # [mpi == "openmpi"]
     - pkg-config {{ name }} --exact-version {{ version }}
     - test -f $PREFIX/bin/dftb+
-    - $PREFIX/bin/dftb+ | grep "No input file"  # [mpi == "nompi"]
-    - mpiexec $PREFIX/bin/dftb+ | grep "No input file"  # [mpi != "nompi"]
+    - $PREFIX/bin/dftb+ | grep "No input file"  # [mpi == "nompi" and build_platform == target_platform]
+    - mpiexec $PREFIX/bin/dftb+ | grep "No input file"  # [mpi != "nompi" and build_platform == target_platform]
     - test -f $PREFIX/lib/libdftbplus${SHLIB_EXT}
 
 about:
