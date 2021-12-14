@@ -35,6 +35,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - cmake
     - ninja
@@ -47,8 +48,13 @@ requirements:
     - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - scalapackfx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - elsi * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - libnegf * {{ mpi_prefix }}_*
+    - arpack  # [mpi == "nompi"]
+    - mctc-lib
+    - simple-dftd3
     - libmbd * {{ mpi_prefix }}_*
+    - plumed * {{ mpi_prefix }}_*
     - libblas
     - liblapack
   run:
@@ -56,17 +62,25 @@ requirements:
     - {{ pin_compatible('mpifx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
+    - arpack  # [mpi == "nompi"]
+    - {{ pin_compatible('mctc-lib', max_pin='x.x') }} *
+    - {{ pin_compatible('simple-dftd3', max_pin='x.x') }} *
     - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*
+    - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*
 
 test:
   requires:
     - pkg-config
+    # OpenSSH needed, so that OpenMPIs mpiexec can be executed
+    - openssh  # [mpi == "openmpi"]
   commands:
     - pkg-config {{ name }} --exact-version {{ version }}
     - test -f $PREFIX/bin/dftb+
-    - test -f $PREFIX/lib/libdftbplus.dylib  # [osx]
-    - test -f $PREFIX/lib/libdftbplus.so  # [linux]
+    - $PREFIX/bin/dftb+ | grep "No input file"  # [mpi == "nompi"]
+    - mpiexec $PREFIX/bin/dftb+ | grep "No input file"  # [mpi != "nompi"]
+    - test -f $PREFIX/lib/libdftbplus${SHLIB_EXT}
 
 about:
   home: https://{{ name }}.org
