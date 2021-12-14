@@ -31,7 +31,7 @@ cmake_options=(
    "-DWITH_SDFTD3=ON"
    "-DWITH_MBD=ON"
    "-DWITH_PLUMED=ON"
-   "-DWITH_CHIMES=OFF"
+   "-DWITH_CHIMES=ON"
    "-GNinja"
    ${cmake_mpi_options}
    ..
