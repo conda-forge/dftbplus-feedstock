@@ -27,7 +27,7 @@ cmake_options=(
    "-DWITH_OMP=ON"
    "-DWITH_MPI=${MPI}"
    "-DWITH_TRANSPORT=ON"
-   "-DWITH_TBLITE=OFF"
+   "-DWITH_TBLITE=ON"
    "-DWITH_SDFTD3=ON"
    "-DWITH_MBD=ON"
    "-DWITH_PLUMED=ON"
@@ -57,6 +57,7 @@ fi
 ctest_regexps_generic=(
   'non-scc/Si_2$'
   'transport/CH4$'                     # WITH_TRANSPORT
+  'xtb/gfn1_h2$'                       # WITH_TBLITE
   'dispersion/2H2O_dftd3_zero$'        # WITH_SDFTD3
   'dispersion/2C6H6_TS$'               # WITH_MBD
   'md/H3-plumed$'                      # WITH_PLUMED
