@@ -32,6 +32,9 @@ build:
     - {{ name }} * {{ mpi_prefix }}_*
   {% endif %}
 
+  script_env:
+    - DFTBPLUS_TEST_BUILD="{{ build_platform == target_platform }}"
+
 requirements:
   build:
     - {{ compiler('c') }}
@@ -43,6 +46,7 @@ requirements:
     - pkg-config
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
+    - wget  # [build_platform == target_platform]
   host:
     - {{ mpi }}  # [mpi != "nompi"]
     - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]

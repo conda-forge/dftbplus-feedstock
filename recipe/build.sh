@@ -44,3 +44,45 @@ FFLAGS="-fno-backtrace" cmake "${cmake_options[@]}"
 ninja all install
 
 popd
+
+
+if [ "${DFTBPLUS_TEST_BUILD}" != "True" ]; then
+  exit 0
+fi
+
+#
+# Very quick test (< 10s) to check build sanity (checking most important components)
+#
+
+ctest_regexps_generic=(
+  'non-scc/Si_2$'
+  'transport/CH4$'                     # WITH_TRANSPORT
+  'dispersion/2H2O_dftd3_zero$'        # WITH_SDFTD3
+  'dispersion/2C6H6_TS$'               # WITH_MBD
+  'md/H3-plumed$'                      # WITH_PLUMED
+  'chimes/CNOH$'                       # WITH_CHIMES
+)
+
+ctest_regexps_nompi=(
+  'timedep/N2_onsite$'                 # WITH_ARPACK
+)
+
+ctest_regexps_mpi=(
+  'helical/C6H6_stack_ELPA$'           # WITH_ELSI
+)
+
+if [ "${mpi}" == "nompi" ]; then
+  ctest_regexps="${ctest_regexps_generic[@]} ${ctest_regexps_nompi[@]}"
+else
+  ctest_regexps="${ctest_regexps_generic[@]} ${ctest_regexps_mpi[@]}"
+  if [ "${mpi}" = "openmpi" ]; then
+    export OMPI_MCA_plm=isolated OMPI_MCA_btl_vader_single_copy_mechanism=none OMPI_MCA_rmaps_base_oversubscribe=yes
+  fi
+fi
+
+./utils/get_opt_externals slakos
+pushd _build
+for ctest_regexp in ${ctest_regexps[@]}; do
+  ctest -R "${ctest_regexp}"
+done
+popd
