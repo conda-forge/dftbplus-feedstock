@@ -33,7 +33,7 @@ cmake_options=(
    "-DWITH_PLUMED=ON"
    "-DWITH_CHIMES=ON"
    "-GNinja"
-   ${cmake_mpi_options}
+   ${cmake_mpi_options[@]}
    ..
 )
 
