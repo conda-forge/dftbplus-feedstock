@@ -8,8 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: e73aa698ff951b59f7fe2ea027b292bae16abf545c9fdbb11b5b5127f04a3c10
+  url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
+  sha256: fbeb0e0ea93ab4dc4450f298ec712d2cf991f19f621badf57dae05f0e43b5906
   patches:
     - cmake.patch
 
