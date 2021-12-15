@@ -1,6 +1,6 @@
 {% set name = "dftbplus" %}
 {% set version = "21.2" %}
-{% set build = 0 %}
+{% set build = 1 %}
 {% set mpi = mpi or "nompi" %}
 
 package:
@@ -53,6 +53,7 @@ requirements:
     - arpack  # [mpi == "nompi"]
     - mctc-lib
     - simple-dftd3
+    - tblite
     - libmbd * {{ mpi_prefix }}_*
     - plumed * {{ mpi_prefix }}_*
     - libblas
@@ -65,8 +66,9 @@ requirements:
     - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
-    - {{ pin_compatible('mctc-lib', max_pin='x.x') }} *
-    - {{ pin_compatible('simple-dftd3', max_pin='x.x') }} *
+    - {{ pin_compatible('mctc-lib', max_pin='x.x') }}
+    - {{ pin_compatible('simple-dftd3', max_pin='x.x') }}
+    - {{ pin_compatible('tblite', max_pin='x.x') }}
     - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*
     - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*
 
