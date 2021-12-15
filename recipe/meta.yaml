@@ -54,6 +54,7 @@ requirements:
     - mctc-lib
     - simple-dftd3
     - tblite
+    - chimes-calculator
     - libmbd * {{ mpi_prefix }}_*
     - plumed * {{ mpi_prefix }}_*
     - libblas
@@ -69,6 +70,7 @@ requirements:
     - {{ pin_compatible('mctc-lib', max_pin='x.x') }}
     - {{ pin_compatible('simple-dftd3', max_pin='x.x') }}
     - {{ pin_compatible('tblite', max_pin='x.x') }}
+    - {{ pin_compatible('chimes-calculator', max_pin='x.x') }}
     - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*
     - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*
 
