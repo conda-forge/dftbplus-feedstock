@@ -32,9 +32,6 @@ build:
     - {{ name }} * {{ mpi_prefix }}_*
   {% endif %}
 
-  script_env:
-    - DFTBPLUS_TEST_BUILD="{{ build_platform == target_platform }}"
-
 requirements:
   build:
     - {{ compiler('c') }}

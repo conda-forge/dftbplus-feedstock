@@ -46,7 +46,7 @@ ninja all install
 popd
 
 
-if [ "${DFTBPLUS_TEST_BUILD}" != "True" ]; then
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
   exit 0
 fi
 
