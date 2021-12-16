@@ -54,7 +54,22 @@ fi
 # Very quick test (< 10s) to check build sanity (checking most important components)
 #
 
-ctest_regexps_generic=(
+if [ "${mpi}" == "nompi" ]; then
+  ctest_mpi_regexps=(
+    'timedep/N2_onsite$'               # WITH_ARPACK
+  )
+else
+  ctest_mpi_regexps=(
+    'helical/C6H6_stack_ELPA$'         # WITH_ELSI
+  )
+  if [ "${mpi}" = "openmpi" ]; then
+    export OMPI_MCA_plm=isolated
+    export OMPI_MCA_btl_vader_single_copy_mechanism=none
+    export OMPI_MCA_rmaps_base_oversubscribe=yes
+  fi
+fi
+
+ctest_regexps=(
   'non-scc/Si_2$'
   'transport/CH4$'                     # WITH_TRANSPORT
   'xtb/gfn1_h2$'                       # WITH_TBLITE
@@ -62,24 +77,8 @@ ctest_regexps_generic=(
   'dispersion/2C6H6_TS$'               # WITH_MBD
   'md/H3-plumed$'                      # WITH_PLUMED
   'chimes/CNOH$'                       # WITH_CHIMES
+  ${ctest_mpi_regexps[@]}
 )
-
-ctest_regexps_nompi=(
-  'timedep/N2_onsite$'                 # WITH_ARPACK
-)
-
-ctest_regexps_mpi=(
-  'helical/C6H6_stack_ELPA$'           # WITH_ELSI
-)
-
-if [ "${mpi}" == "nompi" ]; then
-  ctest_regexps="${ctest_regexps_generic[@]} ${ctest_regexps_nompi[@]}"
-else
-  ctest_regexps="${ctest_regexps_generic[@]} ${ctest_regexps_mpi[@]}"
-  if [ "${mpi}" = "openmpi" ]; then
-    export OMPI_MCA_plm=isolated OMPI_MCA_btl_vader_single_copy_mechanism=none OMPI_MCA_rmaps_base_oversubscribe=yes
-  fi
-fi
 
 ./utils/get_opt_externals slakos
 pushd _build
