@@ -1,6 +1,6 @@
 {% set name = "dftbplus" %}
 {% set version = "21.2" %}
-{% set build = 0 %}
+{% set build = 1 %}
 {% set mpi = mpi or "nompi" %}
 
 package:
@@ -8,8 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: e73aa698ff951b59f7fe2ea027b292bae16abf545c9fdbb11b5b5127f04a3c10
+  url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
+  sha256: fbeb0e0ea93ab4dc4450f298ec712d2cf991f19f621badf57dae05f0e43b5906
   patches:
     - cmake.patch
 
@@ -43,6 +43,7 @@ requirements:
     - pkg-config
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
+    - wget  # [build_platform == target_platform]
   host:
     - {{ mpi }}  # [mpi != "nompi"]
     - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
@@ -53,8 +54,10 @@ requirements:
     - arpack  # [mpi == "nompi"]
     - mctc-lib
     - simple-dftd3
+    - tblite
     - libmbd * {{ mpi_prefix }}_*
     - plumed * {{ mpi_prefix }}_*
+    - chimes-calculator
     - libblas
     - liblapack
   run:
@@ -65,10 +68,12 @@ requirements:
     - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
-    - {{ pin_compatible('mctc-lib', max_pin='x.x') }} *
-    - {{ pin_compatible('simple-dftd3', max_pin='x.x') }} *
+    - {{ pin_compatible('mctc-lib', max_pin='x.x') }}
+    - {{ pin_compatible('simple-dftd3', max_pin='x.x') }}
+    - {{ pin_compatible('tblite', max_pin='x.x') }}
     - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*
     - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*
+    - {{ pin_compatible('chimes-calculator', max_pin='x.x') }}
 
 test:
   requires:
