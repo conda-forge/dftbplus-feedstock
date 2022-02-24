@@ -1,6 +1,6 @@
 {% set name = "dftbplus" %}
 {% set version = "21.2" %}
-{% set build = 2 %}
+{% set build = 3 %}
 {% set mpi = mpi or "nompi" %}
 
 package:
