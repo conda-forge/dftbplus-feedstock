@@ -8,12 +8,10 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/aradi/dftbplus/archive/refs/heads/release.zip
-  sha256: dceacaa39da0c156dadbd6de9f2097ca1d9e061e9d8fedc67d9cf1cd3732ee49
+  url: https://github.com/aradi/dftbplus/archive/refs/heads/release-22.1.zip
+  sha256: 67324ec46f1970691e9bf45fd02efe5bccbd86a2ec5519221dbb83c75240f03a
   #url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
   #sha256: fbeb0e0ea93ab4dc4450f298ec712d2cf991f19f621badf57dae05f0e43b5906
-  patches:
-    - cmake.patch
 
 {% if mpi == "nompi" %}
 {% set build = build + 100 %}
