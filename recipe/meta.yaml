@@ -1,5 +1,5 @@
 {% set name = "dftbplus" %}
-{% set version = "22.1" %}
+{% set version = "22.2" %}
 {% set build = 0 %}
 {% set mpi = mpi or "nompi" %}
 
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
-  sha256: 02daca6f4c6372656598f3ba0311110c8e473c87c8d934d7bb276feaa4cc1c82
+  sha256: 0140f5f2e24d3071e5e7aede2ed6216a6f46d55216b0d69da17af917c62e98ed
 
 {% if mpi == "nompi" %}
 {% set build = build + 100 %}
