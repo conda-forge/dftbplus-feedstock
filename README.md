@@ -1,11 +1,11 @@
-About dftbplus
-==============
+About dftbplus-feedstock
+========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/dftbplus-feedstock/blob/main/LICENSE.txt)
 
 Home: https://dftbplus.org
 
 Package license: LGPL-3.0-or-later
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/dftbplus-feedstock/blob/main/LICENSE.txt)
 
 Summary: DFTB+ general package for performing fast atomistic simulations
 
