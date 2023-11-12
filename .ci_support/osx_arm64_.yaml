@@ -1,5 +1,5 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
+- '11.0'
 arpack:
 - '3.8'
 c_compiler:
@@ -25,15 +25,15 @@ liblapack:
 llvm_openmp:
 - '16'
 macos_machine:
-- x86_64-apple-darwin13.4.0
+- arm64-apple-darwin20.0.0
 mpi:
-- mpich
+- nompi
 mpich:
 - '4'
 openmpi:
 - '4'
 target_platform:
-- osx-64
+- osx-arm64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
