@@ -4,14 +4,18 @@ set -ex
 echo "*** TARGET PLATTFORM: ${target_platform}"
 echo "*** BUILD PLATTFORM: ${build_platform}"
 
+cmake_options=(
+  ${CMAKE_ARGS}
+)
+
 if [ "${mpi}" == "nompi" ]; then
-  cmake_mpi_options=(
+  cmake_options+=(
     "-DWITH_MPI=OFF"
     "-DWITH_ELSI=OFF"
     "-DWITH_ARPACK=ON"
   )
 else
-  cmake_mpi_options=(
+  cmake_options+=(
     "-DWITH_MPI=ON"
     "-DWITH_ELSI=ON"
     "-DWITH_ARPACK=OFF"
@@ -19,17 +23,16 @@ else
 fi
 
 if [ "${target_platform}" == "osx-arm64" ]; then
-  cmake_target_platform_options=(
+  cmake_options+=(
     "-DWITH_MBD=OFF"
   )
 else
-  cmake_target_platform_options=(
+  cmake_options+=(
     "-DWITH_MBD=ON"
   )
 fi
 
-cmake_options=(
-  ${CMAKE_ARGS}
+cmake_options+=(
   "-DLAPACK_LIBRARY='lapack;blas'"
   "-DSCALAPACK_LIBRARY='scalapack'"
   "-DHYBRID_CONFIG_METHODS='Find;PkgConf'"
@@ -43,8 +46,6 @@ cmake_options=(
   "-DWITH_SDFTD3=ON"
   "-DWITH_PLUMED=ON"
   "-DWITH_CHIMES=ON"
-  ${cmake_mpi_options[@]}
-  ${cmake_target_platform_options[@]}
   "-GNinja"
   ..
 )
@@ -67,21 +68,6 @@ fi
 #
 
 
-if [ "${mpi}" == "nompi" ]; then
-  ctest_mpi_regexps=(
-    'timedep/N2_onsite$'               # WITH_ARPACK
-  )
-else
-  ctest_mpi_regexps=(
-    'helical/C6H6_stack_ELPA$'         # WITH_ELSI
-  )
-  if [ "${mpi}" = "openmpi" ]; then
-    export OMPI_MCA_plm=isolated
-    export OMPI_MCA_btl_vader_single_copy_mechanism=none
-    export OMPI_MCA_rmaps_base_oversubscribe=yes
-  fi
-fi
-
 ctest_regexps=(
   'non-scc/Si_2$'
   'transport/CH4$'                     # WITH_TRANSPORT
@@ -92,9 +78,23 @@ ctest_regexps=(
   ${ctest_mpi_regexps[@]}
 )
 
+if [ "${mpi}" == "nompi" ]; then
+  ctest_regexps+=(
+    'timedep/N2_onsite$'               # WITH_ARPACK
+  )
+else
+  ctest_regexps+=(
+    'helical/C6H6_stack_ELPA$'         # WITH_ELSI
+  )
+  if [ "${mpi}" = "openmpi" ]; then
+    export OMPI_MCA_plm=isolated
+    export OMPI_MCA_btl_vader_single_copy_mechanism=none
+    export OMPI_MCA_rmaps_base_oversubscribe=yes
+  fi
+fi
+
 if [ "${target-platform}" != "osx-arm64"]; then
-  ctest_regexps=(
-    ${ctest_regexps[@]}
+  ctest_regexps+=(
     'dispersion/2C6H6_TS$'               # WITH_MBD
   )
 fi
