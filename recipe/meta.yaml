@@ -11,7 +11,7 @@ source:
   # url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
   # sha256: e2d0471c2fd3aaf174a9aac44fd8e7de2668d182201779626d6e62754adc4cf9
   url: https://github.com/aradi/dftbplus/archive/refs/heads/stage-23.2.zip
-  sha256: 573261661011554892bf27ba65ae8e9342cc6606d38b33d281369ccd80b08fba
+  sha256: e7429d15994101f924bcf9f1547737f892b9fc71ea05219d5988273eed4da14a
 
 {% if mpi == "nompi" %}
 {% set build = build + 100 %}

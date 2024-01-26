@@ -2,3 +2,6 @@ mpi:
   - nompi
   - mpich  # [not arm64]
   - openmpi  # [not arm64]
+
+mpich:
+- '3'
