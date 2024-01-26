@@ -29,7 +29,7 @@ macos_machine:
 mpi:
 - mpich
 mpich:
-- '4'
+- '3'
 openmpi:
 - '4'
 target_platform:
