@@ -8,9 +8,6 @@ jobs:
     vmImage: macOS-11
   strategy:
     matrix:
-      osx_64_mpimpich:
-        CONFIG: osx_64_mpimpich
-        UPLOAD_PACKAGES: 'True'
       osx_64_mpinompi:
         CONFIG: osx_64_mpinompi
         UPLOAD_PACKAGES: 'True'
