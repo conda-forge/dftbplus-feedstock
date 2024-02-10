@@ -50,7 +50,7 @@ requirements:
     - scalapack  # [mpi != "nompi"]
     - scalapackfx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - elsi * mpi_{{ mpi }}_*  # [mpi != "nompi"]
-    - libnegf * {{ mpi_prefix }}_*
+    # - libnegf * {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
     - mctc-lib
     - simple-dftd3
@@ -66,7 +66,7 @@ requirements:
     - scalapack  # [mpi != "nompi"]
     - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
-    - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
+    # - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
     - {{ pin_compatible('mctc-lib', max_pin='x.x') }}
     - {{ pin_compatible('simple-dftd3', max_pin='x.x') }}
