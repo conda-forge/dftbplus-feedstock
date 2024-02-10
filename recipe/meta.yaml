@@ -8,8 +8,10 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
-  sha256: e2d0471c2fd3aaf174a9aac44fd8e7de2668d182201779626d6e62754adc4cf9
+  # url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
+  # sha256: e2d0471c2fd3aaf174a9aac44fd8e7de2668d182201779626d6e62754adc4cf9
+  url: https://github.com/aradi/dftbplus/archive/refs/tags/24.1.zip
+  sha256: 3a1ec1d3ee370f74cb28353c34c0e6504f19f1c610712ad693a81a55ab9582d5
 
 {% if mpi == "nompi" %}
 {% set build = build + 100 %}
@@ -44,7 +46,7 @@ requirements:
     - wget  # [build_platform == target_platform]
   host:
     - {{ mpi }}  # [mpi != "nompi"]
-    - mpifx 1.3.1 mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - scalapackfx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - elsi * mpi_{{ mpi }}_*  # [mpi != "nompi"]
