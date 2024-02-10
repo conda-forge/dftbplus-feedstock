@@ -43,6 +43,8 @@ requirements:
     - pkg-config
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
+    # OpenMPI-framework is not found otherwise when cross compiling for osx_arm64
+    - {{ mpi }}  # [mpi == "openmpi" and (osx and arm64)]
     - wget  # [build_platform == target_platform]
   host:
     - {{ mpi }}  # [mpi != "nompi"]
