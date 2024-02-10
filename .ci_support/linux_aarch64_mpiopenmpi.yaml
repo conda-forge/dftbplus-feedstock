@@ -1,7 +1,7 @@
 BUILD:
 - aarch64-conda_cos7-linux-gnu
 arpack:
-- '3.7'
+- '3.8'
 c_compiler:
 - gcc
 c_compiler_version:
