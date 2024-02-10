@@ -49,14 +49,15 @@ requirements:
     - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - scalapackfx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
-    - elsi * mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - elsi * mpi_{{ mpi }}_*  # [mpi != "nompi" and not (osx and arm64)]
     # - libnegf * {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
     - mctc-lib
     - simple-dftd3
     - tblite
     - libmbd * {{ mpi_prefix }}_*
-    - plumed * {{ mpi_prefix }}_*
+    # plumed on osx-arm64 has no mpi build variants
+    - plumed * {{ mpi_prefix }}_*  # [mpi == "nompi" or not (osx and arm64)]
     - chimes-calculator
     - libblas
     - liblapack
@@ -65,14 +66,14 @@ requirements:
     - {{ pin_compatible('mpifx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
-    - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi" and not (osx and arm64)]
     # - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
     - {{ pin_compatible('mctc-lib', max_pin='x.x') }}
     - {{ pin_compatible('simple-dftd3', max_pin='x.x') }}
     - {{ pin_compatible('tblite', max_pin='x.x') }}
     - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*
-    - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*
+    - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi == "nompi" or not (osx and arm64)]
     - {{ pin_compatible('chimes-calculator', max_pin='x.x') }}
 
 test:
@@ -82,8 +83,8 @@ test:
     - export OMPI_MCA_plm=isolated OMPI_MCA_btl_vader_single_copy_mechanism=none OMPI_MCA_rmaps_base_oversubscribe=yes  # [mpi == "openmpi"]
     - pkg-config {{ name }} --exact-version {{ version }}
     - test -f $PREFIX/bin/dftb+
-    - $PREFIX/bin/dftb+ | grep "No input file"  # [mpi == "nompi" and build_platform == target_platform]
-    - mpiexec $PREFIX/bin/dftb+ | grep "No input file"  # [mpi != "nompi" and build_platform == target_platform]
+    - $PREFIX/bin/dftb+ | grep -q "No input file"  # [mpi == "nompi" and build_platform == target_platform]
+    - mpiexec $PREFIX/bin/dftb+ | grep -q "No input file"  # [mpi != "nompi" and build_platform == target_platform]
     - test -f $PREFIX/lib/libdftbplus${SHLIB_EXT}
 
 about:
