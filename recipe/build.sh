@@ -1,22 +1,29 @@
 #!/usr/bin/env bash
 set -ex
 
-if [ "${mpi}" != "nompi" ]; then
-  MPI=ON
-  cmake_mpi_options=(
-    "-DWITH_ELSI=ON"
-    "-DWITH_ARPACK=OFF"
-  )
-else
+if [ "${mpi}" == "nompi" ]; then
   MPI=OFF
-  cmake_mpi_options=(
-    "-DWITH_ELSI=OFF"
-    "-DWITH_ARPACK=ON"
-  )
+  ARPACK=ON
+  PLUMED=ON
+  ELSI=OFF
+else
+  MPI=ON
+  ARPACK=OFF
+  if [[ "${target_platform}" == "osx-arm64" ]]; then
+    PLUMED=OFF
+    ELSI=OFF
+  else
+    PLUMED=ON
+    ELSI=ON
+  fi
 fi
 
 cmake_options=(
    ${CMAKE_ARGS}
+   "-DWITH_MPI=${MPI}"
+   "-DWITH_ARPACK=${ARPACK}"
+   "-DWITH_PLUMED=${PLUMED}"
+   "-DWITH_ELSI=${ELSI}"
    "-DLAPACK_LIBRARY='lapack;blas'"
    "-DSCALAPACK_LIBRARY='scalapack'"
    "-DHYBRID_CONFIG_METHODS='Find;PkgConf'"
@@ -25,26 +32,20 @@ cmake_options=(
    "-DWITH_API=ON"
    "-DWITH_SOCKETS=ON"
    "-DWITH_OMP=ON"
-   "-DWITH_MPI=${MPI}"
    "-DWITH_TRANSPORT=ON"
    "-DWITH_TBLITE=ON"
    "-DWITH_SDFTD3=ON"
    "-DWITH_MBD=ON"
-   "-DWITH_PLUMED=ON"
    "-DWITH_CHIMES=ON"
-   "-GNinja"
-   ${cmake_mpi_options[@]}
-   ..
 )
 
 mkdir -p _build
 pushd _build
 
-FFLAGS="-fno-backtrace" cmake "${cmake_options[@]}"
+FFLAGS="-fno-backtrace" cmake "${cmake_options[@]}" -GNinja ..
 ninja all install
 
 popd
-
 
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
   exit 0
@@ -55,13 +56,17 @@ fi
 #
 
 if [ "${mpi}" == "nompi" ]; then
-  ctest_mpi_regexps=(
+  ctest_variant_regexps=(
     'timedep/N2_onsite$'               # WITH_ARPACK
+    'md/H3-plumed$'                    # WITH_PLUMED
   )
 else
-  ctest_mpi_regexps=(
-    'helical/C6H6_stack_ELPA$'         # WITH_ELSI
-  )
+  if [[ "${target_platform}" != "osx-arm64" ]]; then
+    ctest_variant_regexps=(
+      'md/H3-plumed$'                    # WITH_PLUMED
+      'helical/C6H6_stack_ELPA$'         # WITH_ELSI
+    )
+  fi
   if [ "${mpi}" = "openmpi" ]; then
     export OMPI_MCA_plm=isolated
     export OMPI_MCA_btl_vader_single_copy_mechanism=none
@@ -75,9 +80,8 @@ ctest_regexps=(
   'xtb/gfn1_h2$'                       # WITH_TBLITE
   'dispersion/2H2O_dftd3_zero$'        # WITH_SDFTD3
   'dispersion/2C6H6_TS$'               # WITH_MBD
-  'md/H3-plumed$'                      # WITH_PLUMED
   'chimes/CNOH$'                       # WITH_CHIMES
-  ${ctest_mpi_regexps[@]}
+  ${ctest_variant_regexps[@]}
 )
 
 ./utils/get_opt_externals slakos
