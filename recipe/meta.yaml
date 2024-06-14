@@ -33,6 +33,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - cmake
