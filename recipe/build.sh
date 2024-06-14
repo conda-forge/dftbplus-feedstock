@@ -67,11 +67,6 @@ else
       'helical/C6H6_stack_ELPA$'         # WITH_ELSI
     )
   fi
-  if [ "${mpi}" = "openmpi" ]; then
-    export OMPI_MCA_plm=isolated
-    export OMPI_MCA_btl_vader_single_copy_mechanism=none
-    export OMPI_MCA_rmaps_base_oversubscribe=yes
-  fi
 fi
 
 ctest_regexps=(

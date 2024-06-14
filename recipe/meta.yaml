@@ -33,6 +33,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - cmake
@@ -80,7 +81,6 @@ test:
   requires:
     - pkg-config
   commands:
-    - export OMPI_MCA_plm=isolated OMPI_MCA_btl_vader_single_copy_mechanism=none OMPI_MCA_rmaps_base_oversubscribe=yes  # [mpi == "openmpi"]
     - pkg-config {{ name }} --exact-version {{ version }}
     - test -f $PREFIX/bin/dftb+
     - $PREFIX/bin/dftb+ | grep -q "No input file"  # [mpi == "nompi" and build_platform == target_platform]
