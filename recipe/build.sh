@@ -87,6 +87,6 @@ ctest_regexps=(
 ./utils/get_opt_externals slakos
 pushd _build
 for ctest_regexp in ${ctest_regexps[@]}; do
-  ctest -R "${ctest_regexp}"
+  ctest -R "${ctest_regexp}" --output-on-failure
 done
 popd
