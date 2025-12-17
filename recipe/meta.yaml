@@ -33,6 +33,7 @@ build:
 
 requirements:
   build:
+    - {{ stdlib("c") }}    # [osx]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
@@ -53,9 +54,9 @@ requirements:
     - elsi * mpi_{{ mpi }}_*  # [mpi != "nompi" and not (osx and arm64)]
     - libnegf * {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
-    - mctc-lib
-    - simple-dftd3
-    - tblite
+    - mctc-lib ==0.3.1
+    - simple-dftd3 ==1.0
+    - tblite ==0.3
     - libmbd * {{ mpi_prefix }}_*
     # plumed on osx-arm64 has no mpi build variants
     - plumed * {{ mpi_prefix }}_*  # [mpi == "nompi" or not (osx and arm64)]
