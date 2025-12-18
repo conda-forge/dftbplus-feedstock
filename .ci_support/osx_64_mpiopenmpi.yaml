@@ -37,7 +37,7 @@ mpi:
 mpich:
 - '4'
 openmpi:
-- '5'
+- '4'
 target_platform:
 - osx-64
 zip_keys:
