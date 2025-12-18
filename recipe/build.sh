@@ -21,10 +21,10 @@ fi
 # Workaround for OpenMPI incompatibility. Exclude dependencies which require
 # openMPI 4.x
 MBD=ON
-if [ "${mpi}" == "openmpi" ]; then
+# if [ "${mpi}" == "openmpi" ]; then
   ELSI=OFF
   MBD=OFF
-fi
+# fi
 
 cmake_options=(
    ${CMAKE_ARGS}

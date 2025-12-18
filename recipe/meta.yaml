@@ -64,8 +64,8 @@ requirements:
 
     # Following packages depend on openMPI 4.0 and should be excluded if
     # DFTB+ is built with OpenMPI.
-    - libmbd * {{ mpi_prefix }}_*  # [mpi != "openmpi"]
-    - elsi * mpi_{{ mpi }}_*  # [mpi != "openmpi" and mpi != "nompi" and not (osx and arm64)]
+    # - libmbd * {{ mpi_prefix }}_*  # [mpi != "openmpi"]
+    # - elsi * mpi_{{ mpi }}_*  # [mpi != "openmpi" and mpi != "nompi" and not (osx and arm64)]
 
   run:
     - {{ mpi }}  # [mpi != "nompi"]
@@ -80,8 +80,8 @@ requirements:
     - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi == "nompi" or not (osx and arm64)]
     - {{ pin_compatible('chimes-calculator', max_pin='x.x') }}
 
-    - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi != "openmpi"]
-    - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "openmpi" and mpi != "nompi" and not (osx and arm64)]
+    # - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi != "openmpi"]
+    # - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "openmpi" and mpi != "nompi" and not (osx and arm64)]
     
 test:
   requires:
