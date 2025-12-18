@@ -18,6 +18,14 @@ else
   fi
 fi
 
+# Workaround for OpenMPI incompatibility. Exclude dependencies which require
+# openMPI 4.x
+MBD=ON
+# if [ "${mpi}" == "openmpi" ]; then
+  ELSI=OFF
+  MBD=OFF
+# fi
+
 cmake_options=(
    ${CMAKE_ARGS}
    "-DWITH_MPI=${MPI}"
@@ -35,7 +43,7 @@ cmake_options=(
    "-DWITH_TRANSPORT=ON"
    "-DWITH_TBLITE=ON"
    "-DWITH_SDFTD3=ON"
-   "-DWITH_MBD=ON"
+   "-DWITH_MBD=${MBD}"
    "-DWITH_CHIMES=ON"
 )
 

@@ -1,37 +1,36 @@
 {% set name = "dftbplus" %}
-{% set version = "24.1" %}
+{% set version = "25.1" %}
 {% set build = 0 %}
 {% set mpi = mpi or "nompi" %}
+
+{% if mpi == "nompi" %}
+{% set mpi_prefix = "nompi" %}
+{% set build = build + 100 %}
+{% else %}
+{% set mpi_prefix = "mpi_" + mpi %}
+{% endif %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
-  sha256: 3bc405d1ab834b6b145ca671fb44565ec50a6f576e9e18e7a1ae2c613a311321
+  url: https://github.com/dftbplus/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 136088ffc8a3b27adca0cee46272966de62f2c42de91b632597fb12bf13c8d38
 
-{% if mpi == "nompi" %}
-{% set build = build + 100 %}
-{% endif %}
 build:
   number: {{ build }}
-  skip: True  # [win]
+  # The mpich version fails for uknown reasons on osx64
+  skip: True  # [win or (mpi == "mpich" and osx and x86_64)]
 
-  {% if mpi != "nompi" %}
-  {% set mpi_prefix = "mpi_" + mpi %}
-  {% else %}
-  {% set mpi_prefix = "nompi" %}
-  {% endif %}
   string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
 
-  {% if mpi != "nompi" %}
   run_exports:
-    - {{ name }} * {{ mpi_prefix }}_*
-  {% endif %}
+    - {{ name }} * {{ mpi_prefix }}_*  # [ mpi != "nompi" ]
 
 requirements:
   build:
+    - {{ stdlib("c") }}    # [osx]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
@@ -46,36 +45,42 @@ requirements:
     - wget  # [build_platform == target_platform]
   host:
     - {{ mpi }}  # [mpi != "nompi"]
-    - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - mpifx * {{ mpi_prefix }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
-    - scalapackfx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
-    - elsi * mpi_{{ mpi }}_*  # [mpi != "nompi" and not (osx and arm64)]
+    - scalapackfx >=1.3 {{ mpi_prefix }}_*  # [mpi != "nompi"]
+
     - libnegf * {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
-    - mctc-lib
-    - simple-dftd3
-    - tblite
-    - libmbd * {{ mpi_prefix }}_*
+    - mctc-lib ==0.3.1
+    - simple-dftd3 ==1.0
+    - tblite ==0.3
+
     # plumed on osx-arm64 has no mpi build variants
     - plumed * {{ mpi_prefix }}_*  # [mpi == "nompi" or not (osx and arm64)]
     - chimes-calculator
     - libblas
     - liblapack
+
+    # Following packages depend on openMPI 4.0 and should be excluded if
+    # DFTB+ is built with OpenMPI.
+    - libmbd * {{ mpi_prefix }}_*  # [mpi != "openmpi"]
+    - elsi * {{ mpi_prefix }}_*  # [mpi != "openmpi" and mpi != "nompi" and not (osx and arm64)]
+
   run:
     - {{ mpi }}  # [mpi != "nompi"]
-    - {{ pin_compatible('mpifx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
+    - {{ pin_compatible('mpifx', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
-    - {{ pin_compatible('scalapackfx', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi"]
-    - {{ pin_compatible('elsi', max_pin='x.x') }} mpi_{{ mpi }}_*  # [mpi != "nompi" and not (osx and arm64)]
+    - {{ pin_compatible('scalapackfx', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi != "nompi"]
     - {{ pin_compatible('libnegf', max_pin='x.x') }} {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
     - {{ pin_compatible('mctc-lib', max_pin='x.x') }}
     - {{ pin_compatible('simple-dftd3', max_pin='x.x') }}
     - {{ pin_compatible('tblite', max_pin='x.x') }}
-    - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*
     - {{ pin_compatible('plumed', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi == "nompi" or not (osx and arm64)]
     - {{ pin_compatible('chimes-calculator', max_pin='x.x') }}
-
+    - {{ pin_compatible('libmbd', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi != "openmpi"]
+    - {{ pin_compatible('elsi', max_pin='x.x') }} {{ mpi_prefix }}_*  # [mpi != "openmpi" and mpi != "nompi" and not (osx and arm64)]
+    
 test:
   requires:
     - pkg-config
