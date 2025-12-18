@@ -17,7 +17,7 @@ package:
 source:
   #url: https://github.com/{{ name }}/{{ name }}/releases/download/{{ version }}/dftbplus-{{ version }}.tar.xz
   url: https://github.com/aradi/dftbplus/archive/refs/heads/release-25.1.zip
-  sha256: 7a21fa018ec26b154bd3e0da410cd657584feaec5960fa7b1d0f74a08a1583bd
+  sha256: e8546efb8e7967117666827cccaf3f3a6a062a09874f07754bb53886b226f2fa
 
 build:
   number: {{ build }}
@@ -48,7 +48,6 @@ requirements:
     - mpifx * mpi_{{ mpi }}_*  # [mpi != "nompi"]
     - scalapack  # [mpi != "nompi"]
     - scalapackfx >=1.3 mpi_{{ mpi }}_*  # [mpi != "nompi"]
-
 
     - libnegf * {{ mpi_prefix }}_*
     - arpack  # [mpi == "nompi"]
