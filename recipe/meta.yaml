@@ -1,5 +1,5 @@
 {% set name = "dftbplus" %}
-{% set version = "25.1" %}
+{% set version = "26.1" %}
 {% set build = 0 %}
 {% set mpi = mpi or "nompi" %}
 
@@ -12,11 +12,13 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
-  url: https://github.com/dftbplus/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 136088ffc8a3b27adca0cee46272966de62f2c42de91b632597fb12bf13c8d38
+  # url: https://github.com/dftbplus/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  # sha256: 136088ffc8a3b27adca0cee46272966de62f2c42de91b632597fb12bf13c8d38
+  url: https://github.com/aradi/dftbplus/archive/refs/heads/release-{{ version }}.zip
+  sha256: 845dd59dd6634ce9200b64b0eaa2f3e4355cc9ca3863b17a495b749aa92bd8ec
 
 build:
   number: {{ build }}
