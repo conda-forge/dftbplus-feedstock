@@ -12,10 +12,8 @@ package:
   version: "{{ version }}"
 
 source:
-  # url: https://github.com/dftbplus/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  # sha256: 136088ffc8a3b27adca0cee46272966de62f2c42de91b632597fb12bf13c8d38
-  url: https://github.com/aradi/dftbplus/archive/refs/heads/release-{{ version }}.zip
-  sha256: 845dd59dd6634ce9200b64b0eaa2f3e4355cc9ca3863b17a495b749aa92bd8ec
+  url: https://github.com/dftbplus/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 01facc0708ef3c6182730c4de449c74a12945ed2c266fd78b7f5d42e9b53da0a
 
 build:
   number: {{ build }}
